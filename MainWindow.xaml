@@ -6,6 +6,30 @@
         xmlns:local="clr-namespace:CSharp_Calculator_GUI"
         mc:Ignorable="d"
         Title="Calculatrice" Height="450" Width="800">
+
+    <Window.Resources>
+        <!-- le Style sera défini ici -->
+        <Style x:Key="BoutonNumero" TargetType="Button">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Background" Value="#E3E3E3"/>
+            
+        </Style>
+
+        <Style x:Key="BoutonAction" TargetType="Button">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Background" Value="#BDBDBD"/>
+            
+        </Style>
+
+        <Style x:Key="BoutonEgal" TargetType="Button">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Background" Value="#E68A4E"/>
+        </Style>
+    </Window.Resources>
+
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -23,34 +47,34 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Background="#B5E890" Margin="2 2 2 10" BorderBrush="#26361A" BorderThickness="2" CornerRadius="8">
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Background="#AED69C" Margin="2 2 2 10" BorderBrush="#424A3D" BorderThickness="2" CornerRadius="8">
             <TextBlock Text="Texte Test" VerticalAlignment = "Center" TextAlignment="Right"  FontSize="36" Margin="20 10"/>
         </Border>
 
-        <Button Content="%" Grid.Row="1" Grid.Column="0" FontSize="24" Margin="2"/>
-        <Button Content="CE" Grid.Row="1" Grid.Column="1" FontSize="24" Margin="2"/>
-        <Button Content="C" Grid.Row="1" Grid.Column="2" FontSize="24" Margin="2"/>
-        <Button Content="DEL" Grid.Row="1" Grid.Column="3" FontSize="24" Margin="2"/>
-        <Button Content="1/𝑥" Grid.Row="2" Grid.Column="0" FontSize="24" Margin="2"/>
-        <Button Content="𝑥²" Grid.Row="2" Grid.Column="1" FontSize="24" Margin="2"/>
-        <Button Content="√𝑥" Grid.Row="2" Grid.Column="2" FontSize="24" Margin="2"/>
-        <Button Content="÷" Grid.Row="2" Grid.Column="3" FontSize="24" Margin="2"/>
-        <Button Content="7" Grid.Row="3" Grid.Column="0" FontSize="24" Margin="2"/>
-        <Button Content="8" Grid.Row="3" Grid.Column="1" FontSize="24" Margin="2"/>
-        <Button Content="9" Grid.Row="3" Grid.Column="2" FontSize="24" Margin="2"/>
-        <Button Content="×" Grid.Row="3" Grid.Column="3" FontSize="24" Margin="2"/>
-        <Button Content="4" Grid.Row="4" Grid.Column="0" FontSize="24" Margin="2"/>
-        <Button Content="5" Grid.Row="4" Grid.Column="1" FontSize="24" Margin="2"/>
-        <Button Content="6" Grid.Row="4" Grid.Column="2" FontSize="24" Margin="2"/>
-        <Button Content="-" Grid.Row="4" Grid.Column="3" FontSize="24" Margin="2"/>
-        <Button Content="1" Grid.Row="5" Grid.Column="0" FontSize="24" Margin="2"/>
-        <Button Content="2" Grid.Row="5" Grid.Column="1" FontSize="24" Margin="2"/>
-        <Button Content="3" Grid.Row="5" Grid.Column="2" FontSize="24" Margin="2"/>
-        <Button Content="+" Grid.Row="5" Grid.Column="3" FontSize="24" Margin="2"/>
-        <Button Content="+/-" Grid.Row="6" Grid.Column="0" FontSize="24" Margin="2"/>
-        <Button Content="0" Grid.Row="6" Grid.Column="1" FontSize="24" Margin="2"/>
-        <Button Content="," Grid.Row="6" Grid.Column="2" FontSize="24" Margin="2"/>
-        <Button Content="=" Grid.Row="6" Grid.Column="3" FontSize="24" Margin="2"/>
+        <Button Content="%" Grid.Row="1" Grid.Column="0" Style="{StaticResource BoutonAction}"/>
+        <Button Content="CE" Grid.Row="1" Grid.Column="1" Style="{StaticResource BoutonAction}"/>
+        <Button Content="C" Grid.Row="1" Grid.Column="2" Style="{StaticResource BoutonAction}"/>
+        <Button Content="DEL" Grid.Row="1" Grid.Column="3" Style="{StaticResource BoutonAction}"/>
+        <Button Content="1/𝑥" Grid.Row="2" Grid.Column="0" Style="{StaticResource BoutonAction}"/>
+        <Button Content="𝑥²" Grid.Row="2" Grid.Column="1" Style="{StaticResource BoutonAction}"/>
+        <Button Content="√𝑥" Grid.Row="2" Grid.Column="2" Style="{StaticResource BoutonAction}"/>
+        <Button Content="÷" Grid.Row="2" Grid.Column="3" Style="{StaticResource BoutonAction}"/>
+        <Button Content="7" Grid.Row="3" Grid.Column="0" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="8" Grid.Row="3" Grid.Column="1" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="9" Grid.Row="3" Grid.Column="2" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="×" Grid.Row="3" Grid.Column="3" Style="{StaticResource BoutonAction}"/>
+        <Button Content="4" Grid.Row="4" Grid.Column="0" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="5" Grid.Row="4" Grid.Column="1" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="6" Grid.Row="4" Grid.Column="2" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="-" Grid.Row="4" Grid.Column="3" Style="{StaticResource BoutonAction}"/>
+        <Button Content="1" Grid.Row="5" Grid.Column="0" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="2" Grid.Row="5" Grid.Column="1" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="3" Grid.Row="5" Grid.Column="2" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="+" Grid.Row="5" Grid.Column="3" Style="{StaticResource BoutonAction}"/>
+        <Button Content="+/-" Grid.Row="6" Grid.Column="0" Style="{StaticResource BoutonAction}"/>
+        <Button Content="0" Grid.Row="6" Grid.Column="1" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="," Grid.Row="6" Grid.Column="2" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="=" Grid.Row="6" Grid.Column="3" Style="{StaticResource BoutonEgal}"/>
 
     </Grid>
 </Window>
