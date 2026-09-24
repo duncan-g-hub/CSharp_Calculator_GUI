@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace C__Calculator_GUI;
+namespace CSharp_Calculator_GUI;
 
 /// <summary>
 /// Interaction logic for App.xaml
