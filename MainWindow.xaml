@@ -9,24 +9,67 @@
 
     <Window.Resources>
         <!-- le Style sera défini ici -->
-        <Style x:Key="BoutonNumero" TargetType="Button">
+
+        <Style x:Key="BoutonBase" TargetType="Button" >
             <Setter Property="FontSize" Value="24"/>
             <Setter Property="Margin" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="4">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+                
+                
+
+            </Setter>
+        </Style>
+
+        <Style x:Key="BoutonNumero" TargetType="Button" BasedOn="{StaticResource BoutonBase}">
+            <Setter Property="BorderBrush" Value="#A1A1A1"/>
             <Setter Property="Background" Value="#E3E3E3"/>
-            
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#BDBDBD"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#E3E3E3"/>
+                </Trigger>
+            </Style.Triggers>
+
         </Style>
 
-        <Style x:Key="BoutonAction" TargetType="Button">
-            <Setter Property="FontSize" Value="24"/>
-            <Setter Property="Margin" Value="2"/>
+        <Style x:Key="BoutonAction" TargetType="Button" BasedOn="{StaticResource BoutonBase}">
+            <Setter Property="BorderBrush" Value="#787878"/>
             <Setter Property="Background" Value="#BDBDBD"/>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E3E3E3"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#BDBDBD"/>
+                </Trigger>
+            </Style.Triggers>
             
         </Style>
 
-        <Style x:Key="BoutonEgal" TargetType="Button">
-            <Setter Property="FontSize" Value="24"/>
-            <Setter Property="Margin" Value="2"/>
+        <Style x:Key="BoutonEgal" TargetType="Button" BasedOn="{StaticResource BoutonBase}">
+            <Setter Property="BorderBrush" Value="#5E3B25"/>
             <Setter Property="Background" Value="#E68A4E"/>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#A36237"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#E68A4E"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
 
