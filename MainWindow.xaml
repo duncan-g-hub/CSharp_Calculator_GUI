@@ -5,11 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CSharp_Calculator_GUI"
         mc:Ignorable="d"
-        Title="Calculatrice" Height="450" Width="800">
+        Title="Calculatrice" Height="450" Width="350" MinHeight="400" MinWidth="300"> 
 
     <Window.Resources>
         <!-- le Style sera défini ici -->
-
         <Style x:Key="BoutonBase" TargetType="Button" >
             <Setter Property="FontSize" Value="24"/>
             <Setter Property="Margin" Value="2"/>
@@ -22,9 +21,6 @@
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
-                
-                
-
             </Setter>
         </Style>
 
@@ -71,6 +67,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
     </Window.Resources>
 
     <Grid Margin="10">
@@ -83,6 +80,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -91,7 +89,10 @@
         </Grid.ColumnDefinitions>
 
         <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Background="#AED69C" Margin="2 2 2 10" BorderBrush="#424A3D" BorderThickness="2" CornerRadius="8">
-            <TextBlock Text="Texte Test" VerticalAlignment = "Center" TextAlignment="Right"  FontSize="36" Margin="20 10"/>
+            <StackPanel VerticalAlignment = "Center" >
+                <TextBlock x:Name="StockedText" Text="test" VerticalAlignment = "Center" TextAlignment="Right"  FontSize="20" Margin="20 5 20 0"/>
+                <TextBlock x:Name="DisplayText" Text="0" VerticalAlignment = "Center" TextAlignment="Right"  FontSize="32" Margin="15 3 15 5"/>
+            </StackPanel>
         </Border>
 
         <Button Content="%" Grid.Row="1" Grid.Column="0" Style="{StaticResource BoutonAction}"/>
@@ -101,21 +102,21 @@
         <Button Content="1/𝑥" Grid.Row="2" Grid.Column="0" Style="{StaticResource BoutonAction}"/>
         <Button Content="𝑥²" Grid.Row="2" Grid.Column="1" Style="{StaticResource BoutonAction}"/>
         <Button Content="√𝑥" Grid.Row="2" Grid.Column="2" Style="{StaticResource BoutonAction}"/>
-        <Button Content="÷" Grid.Row="2" Grid.Column="3" Style="{StaticResource BoutonAction}"/>
-        <Button Content="7" Grid.Row="3" Grid.Column="0" Style="{StaticResource BoutonNumero}"/>
-        <Button Content="8" Grid.Row="3" Grid.Column="1" Style="{StaticResource BoutonNumero}"/>
-        <Button Content="9" Grid.Row="3" Grid.Column="2" Style="{StaticResource BoutonNumero}"/>
-        <Button Content="×" Grid.Row="3" Grid.Column="3" Style="{StaticResource BoutonAction}"/>
-        <Button Content="4" Grid.Row="4" Grid.Column="0" Style="{StaticResource BoutonNumero}"/>
-        <Button Content="5" Grid.Row="4" Grid.Column="1" Style="{StaticResource BoutonNumero}"/>
-        <Button Content="6" Grid.Row="4" Grid.Column="2" Style="{StaticResource BoutonNumero}"/>
-        <Button Content="-" Grid.Row="4" Grid.Column="3" Style="{StaticResource BoutonAction}"/>
-        <Button Content="1" Grid.Row="5" Grid.Column="0" Style="{StaticResource BoutonNumero}"/>
-        <Button Content="2" Grid.Row="5" Grid.Column="1" Style="{StaticResource BoutonNumero}"/>
-        <Button Content="3" Grid.Row="5" Grid.Column="2" Style="{StaticResource BoutonNumero}"/>
-        <Button Content="+" Grid.Row="5" Grid.Column="3" Style="{StaticResource BoutonAction}"/>
+        <Button Content="÷" Grid.Row="2" Grid.Column="3" Click="GetOperator" Style="{StaticResource BoutonAction}"/>
+        <Button Content="7" Grid.Row="3" Grid.Column="0" Click="GetNumber" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="8" Grid.Row="3" Grid.Column="1" Click="GetNumber" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="9" Grid.Row="3" Grid.Column="2" Click="GetNumber" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="×" Grid.Row="3" Grid.Column="3" Click="GetOperator" Style="{StaticResource BoutonAction}"/>
+        <Button Content="4" Grid.Row="4" Grid.Column="0" Click="GetNumber" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="5" Grid.Row="4" Grid.Column="1" Click="GetNumber" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="6" Grid.Row="4" Grid.Column="2" Click="GetNumber" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="-" Grid.Row="4" Grid.Column="3" Click="GetOperator" Style="{StaticResource BoutonAction}"/>
+        <Button Content="1" Grid.Row="5" Grid.Column="0" Click="GetNumber" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="2" Grid.Row="5" Grid.Column="1" Click="GetNumber" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="3" Grid.Row="5" Grid.Column="2" Click="GetNumber" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="+" Grid.Row="5" Grid.Column="3" Click="GetOperator" Style="{StaticResource BoutonAction}"/>
         <Button Content="+/-" Grid.Row="6" Grid.Column="0" Style="{StaticResource BoutonAction}"/>
-        <Button Content="0" Grid.Row="6" Grid.Column="1" Style="{StaticResource BoutonNumero}"/>
+        <Button Content="0" Grid.Row="6" Grid.Column="1" Click="GetNumber" Style="{StaticResource BoutonNumero}"/>
         <Button Content="," Grid.Row="6" Grid.Column="2" Style="{StaticResource BoutonNumero}"/>
         <Button Content="=" Grid.Row="6" Grid.Column="3" Style="{StaticResource BoutonEgal}"/>
 
