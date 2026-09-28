@@ -16,7 +16,7 @@ namespace CSharp_Calculator_GUI;
 /// </summary>
 public partial class MainWindow : Window
 {   
-    string mainNumber = "0";
+    string mainNumber = "";
     string? stockedNumber = null;
     string? selectedOperator = null;
     bool reset = false;
@@ -30,7 +30,7 @@ public partial class MainWindow : Window
     private void GetNumber(object sender, RoutedEventArgs e)
     {
         Button clickedButton = sender as Button;
-        if (reset || mainNumber=="0")
+        if (reset || mainNumber=="")
         {   
             mainNumber = clickedButton.Content.ToString();
             reset = false;
@@ -46,32 +46,47 @@ public partial class MainWindow : Window
     private void GetOperator(object sender, RoutedEventArgs e)
     {
         Button clickedButton = sender as Button;
-        
-        if (!reset)
-        {   
-            if (selectedOperator == null)
-            {
-                selectedOperator = clickedButton.Content.ToString();
-                StockedText.Text = mainNumber + " " + selectedOperator + " ";
-                MainText.Text = "0";
-                stockedNumber = mainNumber;
-                mainNumber = "0";
-                reset = true;
-            }
-            else
-            {
-                // si il y a deja un operator selectionné on effectue le premier calcul 
-            }
-            
-        }
-        else
+
+        if (selectedOperator == null && mainNumber!="")
         {
             selectedOperator = clickedButton.Content.ToString();
             StockedText.Text = mainNumber + " " + selectedOperator + " ";
-            MainText.Text = "0";
+            MainText.Text = "_";
             stockedNumber = mainNumber;
+            mainNumber = "";
+            reset = true;
+        }
+
+        else if (selectedOperator == null && mainNumber=="")
+        {
+            selectedOperator = clickedButton.Content.ToString();
             mainNumber = "0";
-            reset = false;
+            StockedText.Text = mainNumber + " " + selectedOperator + " ";
+            MainText.Text = "_";
+            stockedNumber = mainNumber;
+            mainNumber = "";
+            reset = true;
+        }
+
+        else if (selectedOperator != null && mainNumber!="")
+        {
+            
+            DoCalculation();
+            stockedNumber = mainNumber;
+            StockedText.Text = mainNumber;
+            selectedOperator = clickedButton.Content.ToString();
+            StockedText.Text += " " + selectedOperator + " ";
+            MainText.Text = "_";
+            mainNumber = "";                
+        }
+        
+        else if (selectedOperator != null && mainNumber=="")
+        {   
+            string oldOperator = selectedOperator;
+            selectedOperator = clickedButton.Content.ToString();
+            StockedText.Text = StockedText.Text.Replace(oldOperator +" ",selectedOperator +" ");
+            MainText.Text = "_";
+            mainNumber = "";                
         }
     }
 
@@ -130,11 +145,7 @@ public partial class MainWindow : Window
         
     private void DeleteLast(object sender, RoutedEventArgs e)
     {   
-        if (reset)
-        {
-            DeleteAll(null, null);
-        }
-        else
+        if (!reset)
         {
             if (mainNumber.Length > 1)
             {
@@ -142,10 +153,12 @@ public partial class MainWindow : Window
             }
             else if (mainNumber.Length == 1)
             {
-                mainNumber = "0";
+                mainNumber = "";
             }
             MainText.Text = mainNumber;
-            }
+        }
+     
+            
     }
 
     private void DeleteMain(object sender, RoutedEventArgs e)
@@ -156,25 +169,21 @@ public partial class MainWindow : Window
         }
         else
         {
-            mainNumber = "0";
-            MainText.Text = "0";
+            mainNumber = "";
+            MainText.Text = "_";
         }
         
     }
 
     private void DeleteAll(object sender, RoutedEventArgs e)
     {
-        mainNumber = "0";
-        MainText.Text = "0";
+        mainNumber = "";
+        MainText.Text = "_";
         stockedNumber = null;
         StockedText.Text = "";
         reset = false;
         selectedOperator = null;
     }
-
-    
-
-    // methode de supression 1 DEL(dernier caractere)  1 C(tout)  1 CE(tout le main)
 
 }
 

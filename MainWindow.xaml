@@ -91,7 +91,7 @@
         <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Background="#AED69C" Margin="2 2 2 10" BorderBrush="#424A3D" BorderThickness="2" CornerRadius="8">
             <StackPanel VerticalAlignment = "Center" >
                 <TextBlock x:Name="StockedText" Text="" VerticalAlignment = "Center" TextAlignment="Right"  FontSize="20" Margin="20 5 20 0"/>
-                <TextBlock x:Name="MainText" Text="0" VerticalAlignment = "Center" TextAlignment="Right"  FontSize="32" Margin="15 3 15 5"/>
+                <TextBlock x:Name="MainText" Text="_" VerticalAlignment = "Center" TextAlignment="Right"  FontSize="32" Margin="15 3 15 5"/>
             </StackPanel>
         </Border>
 
