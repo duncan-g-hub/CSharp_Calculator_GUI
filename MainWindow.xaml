@@ -90,15 +90,15 @@
 
         <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Background="#AED69C" Margin="2 2 2 10" BorderBrush="#424A3D" BorderThickness="2" CornerRadius="8">
             <StackPanel VerticalAlignment = "Center" >
-                <TextBlock x:Name="StockedText" Text="test" VerticalAlignment = "Center" TextAlignment="Right"  FontSize="20" Margin="20 5 20 0"/>
-                <TextBlock x:Name="DisplayText" Text="0" VerticalAlignment = "Center" TextAlignment="Right"  FontSize="32" Margin="15 3 15 5"/>
+                <TextBlock x:Name="StockedText" Text="" VerticalAlignment = "Center" TextAlignment="Right"  FontSize="20" Margin="20 5 20 0"/>
+                <TextBlock x:Name="MainText" Text="0" VerticalAlignment = "Center" TextAlignment="Right"  FontSize="32" Margin="15 3 15 5"/>
             </StackPanel>
         </Border>
 
         <Button Content="%" Grid.Row="1" Grid.Column="0" Style="{StaticResource BoutonAction}"/>
-        <Button Content="CE" Grid.Row="1" Grid.Column="1" Style="{StaticResource BoutonAction}"/>
-        <Button Content="C" Grid.Row="1" Grid.Column="2" Style="{StaticResource BoutonAction}"/>
-        <Button Content="DEL" Grid.Row="1" Grid.Column="3" Style="{StaticResource BoutonAction}"/>
+        <Button Content="CE" Grid.Row="1" Grid.Column="1" Click="DeleteMain" Style="{StaticResource BoutonAction}"/>
+        <Button Content="C" Grid.Row="1" Grid.Column="2" Click="DeleteAll" Style="{StaticResource BoutonAction}"/>
+        <Button Content="DEL" Grid.Row="1" Grid.Column="3" Click="DeleteLast" Style="{StaticResource BoutonAction}"/>
         <Button Content="1/𝑥" Grid.Row="2" Grid.Column="0" Style="{StaticResource BoutonAction}"/>
         <Button Content="𝑥²" Grid.Row="2" Grid.Column="1" Style="{StaticResource BoutonAction}"/>
         <Button Content="√𝑥" Grid.Row="2" Grid.Column="2" Style="{StaticResource BoutonAction}"/>
@@ -118,7 +118,7 @@
         <Button Content="+/-" Grid.Row="6" Grid.Column="0" Style="{StaticResource BoutonAction}"/>
         <Button Content="0" Grid.Row="6" Grid.Column="1" Click="GetNumber" Style="{StaticResource BoutonNumero}"/>
         <Button Content="," Grid.Row="6" Grid.Column="2" Style="{StaticResource BoutonNumero}"/>
-        <Button Content="=" Grid.Row="6" Grid.Column="3" Style="{StaticResource BoutonEgal}"/>
+        <Button Content="=" Grid.Row="6" Grid.Column="3" Click="GetEquality" Style="{StaticResource BoutonEgal}"/>
 
     </Grid>
 </Window>
