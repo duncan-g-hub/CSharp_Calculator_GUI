@@ -26,6 +26,18 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
 
+    private void UpdateMainDisplay()
+    {
+        if(mainNumber == "")
+        {
+            MainText.Text = "_";
+        }
+        else
+        {
+            MainText.Text = mainNumber;
+        }
+    }
+
     private void GetNumber(object sender, RoutedEventArgs e)
     {
         Button clickedButton = sender as Button;
@@ -43,7 +55,7 @@ public partial class MainWindow : Window
         {
             mainNumber += clickedButton.Content.ToString();
         }
-        MainText.Text = mainNumber;
+        UpdateMainDisplay();
     }
 
     private void GetDecimal(object sender, RoutedEventArgs e)
@@ -66,7 +78,7 @@ public partial class MainWindow : Window
         {
             mainNumber += ",";
         }
-        MainText.Text = mainNumber;
+        UpdateMainDisplay();
     }
 
     private void GetReverse(object sender, RoutedEventArgs e)
@@ -81,7 +93,7 @@ public partial class MainWindow : Window
             {
                 mainNumber = "-" + mainNumber;
             }
-            MainText.Text = mainNumber;
+            UpdateMainDisplay();
         }
     }
 
@@ -93,7 +105,7 @@ public partial class MainWindow : Window
         {
             selectedOperator = clickedButton.Content.ToString();
             StockedText.Text = mainNumber + " " + selectedOperator + " ";
-            MainText.Text = "_";
+            UpdateMainDisplay();
             stockedNumber = mainNumber;
             mainNumber = "";
             reset = true;
@@ -104,7 +116,7 @@ public partial class MainWindow : Window
             selectedOperator = clickedButton.Content.ToString();
             mainNumber = "0";
             StockedText.Text = mainNumber + " " + selectedOperator + " ";
-            MainText.Text = "_";
+            UpdateMainDisplay();
             stockedNumber = mainNumber;
             mainNumber = "";
             reset = true;
@@ -117,7 +129,7 @@ public partial class MainWindow : Window
             StockedText.Text = mainNumber;
             selectedOperator = clickedButton.Content.ToString();
             StockedText.Text += " " + selectedOperator + " ";
-            MainText.Text = "_";
+            UpdateMainDisplay();
             mainNumber = "";                
         }
         
@@ -126,7 +138,7 @@ public partial class MainWindow : Window
             string oldOperator = selectedOperator;
             selectedOperator = clickedButton.Content.ToString();
             StockedText.Text = StockedText.Text.Replace(oldOperator +" ",selectedOperator +" ");
-            MainText.Text = "_";
+            UpdateMainDisplay();
             mainNumber = "";                
         }
     }
@@ -138,13 +150,11 @@ public partial class MainWindow : Window
             StockedText.Text += mainNumber;
             DoCalculation();
             StockedText.Text += $" = ";
-            MainText.Text = mainNumber;
+            UpdateMainDisplay();
             stockedNumber = mainNumber;
             selectedOperator = null;
             reset = true;
         }
-        
-        
     }
 
     private void GetSquare(object sender, RoutedEventArgs e)
@@ -153,7 +163,7 @@ public partial class MainWindow : Window
         {   
             StockedText.Text = mainNumber + "²" +" = ";
             mainNumber = Calculate.Multiplication(mainNumber, mainNumber).ToString();
-            MainText.Text = mainNumber;
+            UpdateMainDisplay();
             stockedNumber = mainNumber;
             reset = true;
         }
@@ -163,7 +173,7 @@ public partial class MainWindow : Window
             StockedText.Text += mainNumber + "²" + " = ";
             mainNumber = result;
             DoCalculation();
-            MainText.Text = mainNumber;
+            UpdateMainDisplay();
             stockedNumber = mainNumber;
             selectedOperator = null;
             reset = true;              
@@ -176,7 +186,7 @@ public partial class MainWindow : Window
         {   
             StockedText.Text = "²√" + mainNumber +" = ";
             mainNumber = Calculate.SquareRoot(mainNumber).ToString();
-            MainText.Text = mainNumber;
+            UpdateMainDisplay();
             stockedNumber = mainNumber;
             reset = true;
         }
@@ -186,43 +196,60 @@ public partial class MainWindow : Window
             StockedText.Text += "²√" + mainNumber + " = ";
             mainNumber = result;
             DoCalculation();
-            MainText.Text = mainNumber;
+            UpdateMainDisplay();
             stockedNumber = mainNumber;
             selectedOperator = null;
             reset = true;              
         }
     }
+
 
     private void GetOneDivided(object sender, RoutedEventArgs e)
     {
         if (selectedOperator == null && mainNumber!="")
         {   
             StockedText.Text = "1/" + mainNumber +" = ";
-            mainNumber = Calculate.Division("1", mainNumber).ToString();
-            MainText.Text = mainNumber;
-            stockedNumber = mainNumber;
+            try
+            {
+                mainNumber = Calculate.Division("1", mainNumber).ToString();
+                UpdateMainDisplay();
+                stockedNumber = mainNumber;
+            }
+            catch (DivideByZeroException ex)
+            {
+                StockedText.Text = ex.Message;
+                mainNumber = "";
+                UpdateMainDisplay();
+            }
             reset = true;
         }
         else if (selectedOperator != null && mainNumber!="")
         {
-            string result = Calculate.Division("1", mainNumber).ToString();
             StockedText.Text += "1/" + mainNumber + " = ";
-            mainNumber = result;
-            DoCalculation();
-            MainText.Text = mainNumber;
-            stockedNumber = mainNumber;
+            try
+            {
+                mainNumber = Calculate.Division("1", mainNumber).ToString();
+                DoCalculation();
+                UpdateMainDisplay();
+                stockedNumber = mainNumber;
+            }
+            catch (DivideByZeroException ex)
+            {
+                StockedText.Text = ex.Message;
+                mainNumber = "";
+                UpdateMainDisplay();
+            }
             selectedOperator = null;
             reset = true;              
         }
     }
-
     private void GetPercent(object sender, RoutedEventArgs e)
     {
         if (selectedOperator == null && mainNumber!="")
         {   
             StockedText.Text = mainNumber + "%" + " = ";
             mainNumber = Calculate.Division(mainNumber, "100").ToString();
-            MainText.Text = mainNumber;
+            UpdateMainDisplay();
             stockedNumber = mainNumber;
             reset = true;
         }
@@ -233,7 +260,7 @@ public partial class MainWindow : Window
             string result = Calculate.Multiplication(stockedNumber, resultP).ToString();
             mainNumber = result;
             DoCalculation();
-            MainText.Text = mainNumber;
+            UpdateMainDisplay();
             stockedNumber = mainNumber;
             selectedOperator = null;
             reset = true;              
@@ -244,7 +271,7 @@ public partial class MainWindow : Window
             StockedText.Text += mainNumber + "%" + " = ";
             mainNumber = result;
             DoCalculation();
-            MainText.Text = mainNumber;
+            UpdateMainDisplay();
             stockedNumber = mainNumber;
             selectedOperator = null;
             reset = true;              
@@ -282,9 +309,8 @@ public partial class MainWindow : Window
                 }
                 catch (DivideByZeroException ex)
                 {
-                    // appel de la fonction pour tout supprimer
                     StockedText.Text = ex.Message;
-                    mainNumber = "_";
+                    mainNumber = "";
                     break;
                 }
         }
@@ -302,7 +328,7 @@ public partial class MainWindow : Window
             {
                 mainNumber = "";
             }
-            MainText.Text = mainNumber;
+            UpdateMainDisplay();
         }
     }
 
@@ -315,14 +341,14 @@ public partial class MainWindow : Window
         else
         {
             mainNumber = "";
-            MainText.Text = "_";
+            UpdateMainDisplay();
         }
     }
 
     private void DeleteAll(object sender, RoutedEventArgs e)
     {
         mainNumber = "";
-        MainText.Text = "_";
+        UpdateMainDisplay();
         stockedNumber = null;
         StockedText.Text = "";
         reset = false;
