@@ -38,6 +38,12 @@ public partial class MainWindow : Window
         }
     }
 
+    /// <summary>
+    /// Ajoute le chiffre du bouton cliqué à la saisie en cours (mainNumber),
+    /// en remplaçant l'affichage si une nouvelle saisie doit démarrer.
+    /// </summary>
+    /// <param name="sender">Le bouton chiffre qui a été cliqué. </param>
+    /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void GetNumber(object sender, RoutedEventArgs e)
     {
         Button clickedButton = sender as Button;
@@ -58,6 +64,12 @@ public partial class MainWindow : Window
         UpdateMainDisplay();
     }
 
+    /// <summary>
+    /// Ajoute la virgule décimale à la saisie en cours, ou démarre une nouvelle saisie avec "0,".
+    /// Ignore le clic si une virgule est déjà présente.
+    /// </summary>
+    /// <param name="sender">Le bouton virgule qui a été cliqué (non utilisé ici).</param>
+    /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void GetDecimal(object sender, RoutedEventArgs e)
     {
         if (reset || mainNumber=="")
@@ -81,6 +93,11 @@ public partial class MainWindow : Window
         UpdateMainDisplay();
     }
 
+    /// <summary>
+    /// Inverse le signe (positif/négatif) de la saisie en cours.
+    /// </summary>
+    /// <param name="sender">Le bouton +/- qui a été cliqué (non utilisé ici).</param>
+    /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void GetReverse(object sender, RoutedEventArgs e)
     {
         if (mainNumber != "")
@@ -97,6 +114,13 @@ public partial class MainWindow : Window
         }
     }
 
+    /// <summary>
+    /// Enregistre l'opérateur choisi (+, -, ×, ÷). Selon le contexte, stocke le nombre en cours,
+    /// déclenche un calcul intermédiaire si un opérateur était déjà en attente, ou remplace
+    /// l'opérateur précédent si aucun nouveau chiffre n'a été saisi entre-temps.
+    /// </summary>
+    /// <param name="sender">Le bouton opérateur qui a été cliqué.</param>
+    /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void GetOperator(object sender, RoutedEventArgs e)
     {
         Button clickedButton = sender as Button;
@@ -143,6 +167,11 @@ public partial class MainWindow : Window
         }
     }
 
+    /// <summary>
+    /// Calcule et affiche le résultat final de l'opération en attente.
+    /// </summary>
+    /// <param name="sender">Le bouton = qui a été cliqué (non utilisé ici).</param>
+    /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void GetEquality(object sender, RoutedEventArgs e)
     {
         if (!reset && mainNumber!="") 
@@ -157,6 +186,12 @@ public partial class MainWindow : Window
         }
     }
 
+    /// <summary>
+    /// Élève la saisie en cours au carré. Si un opérateur est déjà en attente,
+    /// enchaîne avec le calcul de cette opération.
+    /// </summary>
+    /// <param name="sender">Le bouton x² qui a été cliqué (non utilisé ici).</param>
+    /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void GetSquare(object sender, RoutedEventArgs e)
     {
         if (selectedOperator == null && mainNumber!="")
@@ -180,6 +215,12 @@ public partial class MainWindow : Window
         }
     }
 
+    /// <summary>
+    /// Calcule la racine carrée de la saisie en cours. Si un opérateur est déjà en attente,
+    /// enchaîne avec le calcul de cette opération.
+    /// </summary>
+    /// <param name="sender">Le bouton √x qui a été cliqué (non utilisé ici).</param>
+    /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void GetSquareRoot(object sender, RoutedEventArgs e)
     {
         if (selectedOperator == null && mainNumber!="")
@@ -203,7 +244,12 @@ public partial class MainWindow : Window
         }
     }
 
-
+    /// <summary>
+    /// Calcule l'inverse (1/x) de la saisie en cours. Si un opérateur est déjà en attente,
+    /// enchaîne avec le calcul de cette opération. Affiche un message d'erreur si la saisie vaut 0.
+    /// </summary>
+    /// <param name="sender">Le bouton 1/x qui a été cliqué (non utilisé ici).</param>
+    /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void GetOneDivided(object sender, RoutedEventArgs e)
     {
         if (selectedOperator == null && mainNumber!="")
@@ -243,6 +289,14 @@ public partial class MainWindow : Window
             reset = true;              
         }
     }
+
+    /// <summary>
+    /// Convertit la saisie en cours en pourcentage. Le comportement varie selon l'opérateur en
+    /// attente : avec + ou -, le pourcentage est calculé par rapport au nombre stocké ; avec
+    /// × ou ÷, il est appliqué directement à la saisie.
+    /// </summary>
+    /// <param name="sender">Le bouton % qui a été cliqué (non utilisé ici).</param>
+    /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void GetPercent(object sender, RoutedEventArgs e)
     {
         if (selectedOperator == null && mainNumber!="")
@@ -278,6 +332,11 @@ public partial class MainWindow : Window
         }
     }
 
+    /// <summary>
+    /// Effectue le calcul entre le nombre stocké et la saisie en cours, selon l'opérateur
+    /// sélectionné, et met à jour mainNumber avec le résultat. En cas de division par zéro,
+    /// affiche le message d'erreur et vide mainNumber plutôt que de laisser l'exception se propager.
+    /// </summary>
     private void DoCalculation()
     {
         switch (selectedOperator)
@@ -316,6 +375,12 @@ public partial class MainWindow : Window
         }
     }
         
+    /// <summary>
+    /// Supprime le dernier caractère saisi dans le nombre en cours.
+    /// N'a aucun effet si la saisie doit être réinitialisée (reset actif).
+    /// </summary>
+    /// <param name="sender">Le bouton DEL qui a été cliqué (non utilisé ici).</param>
+    /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void DeleteLast(object sender, RoutedEventArgs e)
     {   
         if (!reset)
@@ -332,6 +397,12 @@ public partial class MainWindow : Window
         }
     }
 
+    /// <summary>
+    /// Efface la saisie en cours. Si un résultat vient d'être affiché (reset actif),
+    /// efface en réalité tout le calcul (équivalent à DeleteAll).
+    /// </summary>
+    /// <param name="sender">Le bouton CE qui a été cliqué (non utilisé ici).</param>
+    /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void DeleteMain(object sender, RoutedEventArgs e)
     {
         if (reset)
@@ -345,6 +416,12 @@ public partial class MainWindow : Window
         }
     }
 
+    /// <summary>
+    /// Réinitialise entièrement la calculatrice : efface la saisie en cours, le nombre stocké,
+    /// l'opérateur sélectionné et l'affichage de l'expression.
+    /// </summary>
+    /// <param name="sender">Le bouton C qui a été cliqué (non utilisé ici).</param>
+    /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void DeleteAll(object sender, RoutedEventArgs e)
     {
         mainNumber = "";
@@ -358,32 +435,66 @@ public partial class MainWindow : Window
 
 
 
-
+/// <summary>
+/// Fournit les opérations arithmétiques de base utilisées par la calculatrice,
+/// à partir de valeurs saisies sous forme de texte.
+/// </summary>
 class Calculate
 {
+    /// <summary>
+    /// Convertit une chaîne de texte représentant un nombre en valeur numérique double.
+    /// </summary>
+    /// <param name="numberString">Le nombre à convertir, sous forme de texte.</param>
+    /// <returns>La valeur numérique correspondante.</returns>
     private static double TransformStringToDouble(string numberString)
     {
         double numberDouble = double.Parse(numberString);
         return numberDouble;
     }
 
+    /// <summary>
+    /// Additionne deux nombres fournis sous forme de texte.
+    /// </summary>
+    /// <param name="numberString1">Le premier nombre.</param>
+    /// <param name="numberString2">Le second nombre.</param>
+    /// <returns>La somme des deux nombres, arrondie à 6 décimales.</returns>
     public static double Addition(string numberString1, string numberString2)
     {
         double result = TransformStringToDouble(numberString1) + TransformStringToDouble(numberString2);
         return Math.Round(result, 6);
     }
 
+    /// <summary>
+    /// Soustrait le second nombre au premier, tous deux fournis sous forme de texte.
+    /// </summary>
+    /// <param name="numberString1">Le nombre duquel on soustrait.</param>
+    /// <param name="numberString2">Le nombre à soustraire.</param>
+    /// <returns>Le résultat de la soustraction, arrondi à 6 décimales.</returns>
     public static double Subtraction(string numberString1, string numberString2)
     {   
         double result = TransformStringToDouble(numberString1) - TransformStringToDouble(numberString2);
         return Math.Round(result, 6);
     }
 
+    /// <summary>
+    /// Multiplie deux nombres fournis sous forme de texte.
+    /// </summary>
+    /// <param name="numberString1">Le premier nombre.</param>
+    /// <param name="numberString2">Le second nombre.</param>
+    /// <returns>Le produit des deux nombres, arrondi à 6 décimales.</returns>
     public static double Multiplication(string numberString1, string numberString2)
     {
         double result = TransformStringToDouble(numberString1) * TransformStringToDouble(numberString2);
         return Math.Round(result, 6);
     }
+
+    /// <summary>
+    /// Divise le premier nombre par le second, tous deux fournis sous forme de texte.
+    /// </summary>
+    /// <param name="numberString1">Le dividende.</param>
+    /// <param name="numberString2">Le diviseur.</param>
+    /// <returns>Le résultat de la division, arrondi à 6 décimales.</returns>
+    /// <exception cref="DivideByZeroException">Levée si le diviseur vaut zéro.</exception>
 
     public static double Division(string numberString1, string numberString2)
     {   
@@ -395,7 +506,12 @@ class Calculate
         double result = d1 / d2;
         return Math.Round(result, 6);  
     }
-
+    
+    /// <summary>
+    /// Calcule la racine carrée d'un nombre fourni sous forme de texte.
+    /// </summary>
+    /// <param name="numberString1">Le nombre dont on calcule la racine carrée.</param>
+    /// <returns>La racine carrée, arrondie à 6 décimales.</returns>
     public static double SquareRoot(string numberString1)
     {
         double result = Math.Sqrt(TransformStringToDouble(numberString1));
