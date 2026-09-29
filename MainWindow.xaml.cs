@@ -193,16 +193,63 @@ public partial class MainWindow : Window
         }
     }
 
+    private void GetOneDivided(object sender, RoutedEventArgs e)
+    {
+        if (selectedOperator == null && mainNumber!="")
+        {   
+            StockedText.Text = "1/" + mainNumber +" = ";
+            mainNumber = Calculate.Division("1", mainNumber).ToString();
+            MainText.Text = mainNumber;
+            stockedNumber = mainNumber;
+            reset = true;
+        }
+        else if (selectedOperator != null && mainNumber!="")
+        {
+            string result = Calculate.Division("1", mainNumber).ToString();
+            StockedText.Text += "1/" + mainNumber + " = ";
+            mainNumber = result;
+            DoCalculation();
+            MainText.Text = mainNumber;
+            stockedNumber = mainNumber;
+            selectedOperator = null;
+            reset = true;              
+        }
+    }
 
-
-
-
-    // gestion 1/x
-
-    // gestion pourcentage ???
-
-
-
+    private void GetPercent(object sender, RoutedEventArgs e)
+    {
+        if (selectedOperator == null && mainNumber!="")
+        {   
+            StockedText.Text = mainNumber + "%" + " = ";
+            mainNumber = Calculate.Division(mainNumber, "100").ToString();
+            MainText.Text = mainNumber;
+            stockedNumber = mainNumber;
+            reset = true;
+        }
+        else if ((selectedOperator == "+" || selectedOperator == "-") && mainNumber!="")
+        {
+            string resultP = Calculate.Division(mainNumber, "100").ToString();
+            StockedText.Text += mainNumber + "%" + " = ";
+            string result = Calculate.Multiplication(stockedNumber, resultP).ToString();
+            mainNumber = result;
+            DoCalculation();
+            MainText.Text = mainNumber;
+            stockedNumber = mainNumber;
+            selectedOperator = null;
+            reset = true;              
+        }
+        else if ((selectedOperator == "/" || selectedOperator == "×") && mainNumber!="")
+        {
+            string result = Calculate.Division(mainNumber, "100").ToString();
+            StockedText.Text += mainNumber + "%" + " = ";
+            mainNumber = result;
+            DoCalculation();
+            MainText.Text = mainNumber;
+            stockedNumber = mainNumber;
+            selectedOperator = null;
+            reset = true;              
+        }
+    }
 
     private void DoCalculation()
     {
