@@ -21,7 +21,6 @@ public partial class MainWindow : Window
     string? selectedOperator = null;
     bool reset = false;
 
-
     public MainWindow()
     {
         InitializeComponent();
@@ -47,7 +46,6 @@ public partial class MainWindow : Window
         MainText.Text = mainNumber;
     }
 
-
     private void GetDecimal(object sender, RoutedEventArgs e)
     {
         if (reset || mainNumber=="")
@@ -71,10 +69,6 @@ public partial class MainWindow : Window
         MainText.Text = mainNumber;
     }
 
-
-
-
-
     private void GetReverse(object sender, RoutedEventArgs e)
     {
         if (mainNumber != "")
@@ -82,7 +76,6 @@ public partial class MainWindow : Window
             if (mainNumber.Contains("-"))
             {
                 mainNumber = mainNumber.Replace("-","");
-                
             }
             else
             {
@@ -91,7 +84,6 @@ public partial class MainWindow : Window
             MainText.Text = mainNumber;
         }
     }
-
 
     private void GetOperator(object sender, RoutedEventArgs e)
     {
@@ -120,7 +112,6 @@ public partial class MainWindow : Window
 
         else if (selectedOperator != null && mainNumber!="")
         {
-            
             DoCalculation();
             stockedNumber = mainNumber;
             StockedText.Text = mainNumber;
@@ -156,7 +147,6 @@ public partial class MainWindow : Window
         
     }
 
-
     private void GetSquare(object sender, RoutedEventArgs e)
     {
         if (selectedOperator == null && mainNumber!="")
@@ -170,7 +160,30 @@ public partial class MainWindow : Window
         else if (selectedOperator != null && mainNumber!="")
         {
             string result = Calculate.Multiplication(mainNumber, mainNumber).ToString();
-            StockedText.Text += result + " = ";
+            StockedText.Text += mainNumber + "²" + " = ";
+            mainNumber = result;
+            DoCalculation();
+            MainText.Text = mainNumber;
+            stockedNumber = mainNumber;
+            selectedOperator = null;
+            reset = true;              
+        }
+    }
+
+    private void GetSquareRoot(object sender, RoutedEventArgs e)
+    {
+        if (selectedOperator == null && mainNumber!="")
+        {   
+            StockedText.Text = "²√" + mainNumber +" = ";
+            mainNumber = Calculate.SquareRoot(mainNumber).ToString();
+            MainText.Text = mainNumber;
+            stockedNumber = mainNumber;
+            reset = true;
+        }
+        else if (selectedOperator != null && mainNumber!="")
+        {
+            string result = Calculate.SquareRoot(mainNumber).ToString();
+            StockedText.Text += "²√" + mainNumber + " = ";
             mainNumber = result;
             DoCalculation();
             MainText.Text = mainNumber;
@@ -182,13 +195,14 @@ public partial class MainWindow : Window
 
 
 
-    // gestion racine carré
+
+
     // gestion 1/x
 
     // gestion pourcentage ???
 
 
-    
+
 
     private void DoCalculation()
     {
@@ -243,8 +257,6 @@ public partial class MainWindow : Window
             }
             MainText.Text = mainNumber;
         }
-     
-            
     }
 
     private void DeleteMain(object sender, RoutedEventArgs e)
@@ -258,7 +270,6 @@ public partial class MainWindow : Window
             mainNumber = "";
             MainText.Text = "_";
         }
-        
     }
 
     private void DeleteAll(object sender, RoutedEventArgs e)
@@ -270,8 +281,9 @@ public partial class MainWindow : Window
         reset = false;
         selectedOperator = null;
     }
-
 }
+
+
 
 
 class Calculate
@@ -285,13 +297,13 @@ class Calculate
     public static double Addition(string numberString1, string numberString2)
     {
         double result = TransformStringToDouble(numberString1) + TransformStringToDouble(numberString2);
-        return result;
+        return Math.Round(result, 6);
     }
 
     public static double Subtraction(string numberString1, string numberString2)
     {   
         double result = TransformStringToDouble(numberString1) - TransformStringToDouble(numberString2);
-        return result;
+        return Math.Round(result, 6);
     }
 
     public static double Multiplication(string numberString1, string numberString2)
@@ -311,4 +323,9 @@ class Calculate
         return Math.Round(result, 6);  
     }
 
+    public static double SquareRoot(string numberString1)
+    {
+        double result = Math.Sqrt(TransformStringToDouble(numberString1));
+        return Math.Round(result, 6);
+    }
 }

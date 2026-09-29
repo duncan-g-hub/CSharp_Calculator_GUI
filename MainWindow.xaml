@@ -101,7 +101,7 @@
         <Button Content="DEL" Grid.Row="1" Grid.Column="3" Click="DeleteLast" Style="{StaticResource BoutonAction}"/>
         <Button Content="1/𝑥" Grid.Row="2" Grid.Column="0" Style="{StaticResource BoutonAction}"/>
         <Button Content="𝑥²" Grid.Row="2" Grid.Column="1" Click="GetSquare" Style="{StaticResource BoutonAction}"/>
-        <Button Content="²√𝑥" Grid.Row="2" Grid.Column="2" Style="{StaticResource BoutonAction}"/>
+        <Button Content="²√𝑥" Grid.Row="2" Grid.Column="2" Click="GetSquareRoot" Style="{StaticResource BoutonAction}"/>
         <Button Content="÷" Grid.Row="2" Grid.Column="3" Click="GetOperator" Style="{StaticResource BoutonAction}"/>
         <Button Content="7" Grid.Row="3" Grid.Column="0" Click="GetNumber" Style="{StaticResource BoutonNumero}"/>
         <Button Content="8" Grid.Row="3" Grid.Column="1" Click="GetNumber" Style="{StaticResource BoutonNumero}"/>
