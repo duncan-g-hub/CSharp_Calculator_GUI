@@ -34,6 +34,11 @@ public partial class MainWindow : Window
         {   
             mainNumber = clickedButton.Content.ToString();
             reset = false;
+            if (StockedText.Text.Contains("="))
+            {
+                stockedNumber = null;
+                StockedText.Text = "";
+            }
         }
         else
         {
@@ -42,7 +47,52 @@ public partial class MainWindow : Window
         MainText.Text = mainNumber;
     }
 
-    // methode opérateur (récupere le signe passe reset à true et stock les valeurs) à revoir
+
+    private void GetDecimal(object sender, RoutedEventArgs e)
+    {
+        if (reset || mainNumber=="")
+        {   
+            mainNumber = "0,";
+            reset = false;
+            if (StockedText.Text.Contains("="))
+            {
+                stockedNumber = null;
+                StockedText.Text = "";
+            }
+        }
+        else if(mainNumber.Contains(","))
+        {
+            return;
+        }
+        else
+        {
+            mainNumber += ",";
+        }
+        MainText.Text = mainNumber;
+    }
+
+
+
+
+
+    private void GetReverse(object sender, RoutedEventArgs e)
+    {
+        if (mainNumber != "")
+        {
+            if (mainNumber.Contains("-"))
+            {
+                mainNumber = mainNumber.Replace("-","");
+                
+            }
+            else
+            {
+                mainNumber = "-" + mainNumber;
+            }
+            MainText.Text = mainNumber;
+        }
+    }
+
+
     private void GetOperator(object sender, RoutedEventArgs e)
     {
         Button clickedButton = sender as Button;
@@ -92,7 +142,7 @@ public partial class MainWindow : Window
 
     private void GetEquality(object sender, RoutedEventArgs e)
     {
-        if (!reset && selectedOperator!=null && mainNumber!="") 
+        if (!reset && mainNumber!="") 
         {
             StockedText.Text += mainNumber;
             DoCalculation();
@@ -103,7 +153,42 @@ public partial class MainWindow : Window
             reset = true;
         }
         
+        
     }
+
+
+    private void GetSquare(object sender, RoutedEventArgs e)
+    {
+        if (selectedOperator == null && mainNumber!="")
+        {   
+            StockedText.Text = mainNumber + "²" +" = ";
+            mainNumber = Calculate.Multiplication(mainNumber, mainNumber).ToString();
+            MainText.Text = mainNumber;
+            stockedNumber = mainNumber;
+            reset = true;
+        }
+        else if (selectedOperator != null && mainNumber!="")
+        {
+            string result = Calculate.Multiplication(mainNumber, mainNumber).ToString();
+            StockedText.Text += result + " = ";
+            mainNumber = result;
+            DoCalculation();
+            MainText.Text = mainNumber;
+            stockedNumber = mainNumber;
+            selectedOperator = null;
+            reset = true;              
+        }
+    }
+
+
+
+    // gestion racine carré
+    // gestion 1/x
+
+    // gestion pourcentage ???
+
+
+    
 
     private void DoCalculation()
     {
@@ -138,6 +223,7 @@ public partial class MainWindow : Window
                 {
                     // appel de la fonction pour tout supprimer
                     StockedText.Text = ex.Message;
+                    mainNumber = "_";
                     break;
                 }
         }
@@ -211,7 +297,7 @@ class Calculate
     public static double Multiplication(string numberString1, string numberString2)
     {
         double result = TransformStringToDouble(numberString1) * TransformStringToDouble(numberString2);
-        return result;
+        return Math.Round(result, 6);
     }
 
     public static double Division(string numberString1, string numberString2)
@@ -220,8 +306,9 @@ class Calculate
         double d2 = TransformStringToDouble(numberString2);
         if (d2 == 0)
             throw new DivideByZeroException("Impossible de diviser par zéro...");
-    
-        return d1 / d2;     
+        
+        double result = d1 / d2;
+        return Math.Round(result, 6);  
     }
 
 }
