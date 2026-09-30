@@ -15,7 +15,7 @@ namespace CSharp_Calculator_GUI;
 /// Interaction logic for MainWindow.xaml
 /// </summary>
 public partial class MainWindow : Window
-{   
+{
     string mainNumber = "";
     string? stockedNumber = null;
     string? selectedOperator = null;
@@ -28,7 +28,7 @@ public partial class MainWindow : Window
 
     private void UpdateMainDisplay()
     {
-        if(mainNumber == "")
+        if (mainNumber == "")
         {
             MainText.Text = "_";
         }
@@ -46,9 +46,9 @@ public partial class MainWindow : Window
     /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void GetNumber(object sender, RoutedEventArgs e)
     {
-        Button clickedButton = sender as Button;
-        if (reset || mainNumber=="")
-        {   
+        Button clickedButton = (Button)sender;
+        if (reset || mainNumber == "")
+        {
             mainNumber = clickedButton.Content.ToString();
             reset = false;
             if (StockedText.Text.Contains("="))
@@ -72,8 +72,8 @@ public partial class MainWindow : Window
     /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void GetDecimal(object sender, RoutedEventArgs e)
     {
-        if (reset || mainNumber=="")
-        {   
+        if (reset || mainNumber == "")
+        {
             mainNumber = "0,";
             reset = false;
             if (StockedText.Text.Contains("="))
@@ -82,7 +82,7 @@ public partial class MainWindow : Window
                 StockedText.Text = "";
             }
         }
-        else if(mainNumber.Contains(","))
+        else if (mainNumber.Contains(","))
         {
             return;
         }
@@ -104,7 +104,7 @@ public partial class MainWindow : Window
         {
             if (mainNumber.Contains("-"))
             {
-                mainNumber = mainNumber.Replace("-","");
+                mainNumber = mainNumber.Replace("-", "");
             }
             else
             {
@@ -123,9 +123,9 @@ public partial class MainWindow : Window
     /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void GetOperator(object sender, RoutedEventArgs e)
     {
-        Button clickedButton = sender as Button;
+        Button clickedButton = (Button)sender;
 
-        if (selectedOperator == null && mainNumber!="")
+        if (selectedOperator == null && mainNumber != "")
         {
             selectedOperator = clickedButton.Content.ToString();
             StockedText.Text = mainNumber + " " + selectedOperator + " ";
@@ -135,7 +135,7 @@ public partial class MainWindow : Window
             reset = true;
         }
 
-        else if (selectedOperator == null && mainNumber=="")
+        else if (selectedOperator == null && mainNumber == "")
         {
             selectedOperator = clickedButton.Content.ToString();
             mainNumber = "0";
@@ -146,7 +146,7 @@ public partial class MainWindow : Window
             reset = true;
         }
 
-        else if (selectedOperator != null && mainNumber!="")
+        else if (selectedOperator != null && mainNumber != "")
         {
             DoCalculation();
             stockedNumber = mainNumber;
@@ -154,16 +154,16 @@ public partial class MainWindow : Window
             selectedOperator = clickedButton.Content.ToString();
             StockedText.Text += " " + selectedOperator + " ";
             UpdateMainDisplay();
-            mainNumber = "";                
+            mainNumber = "";
         }
-        
-        else if (selectedOperator != null && mainNumber=="")
-        {   
+
+        else if (selectedOperator != null && mainNumber == "")
+        {
             string oldOperator = selectedOperator;
             selectedOperator = clickedButton.Content.ToString();
-            StockedText.Text = StockedText.Text.Replace(oldOperator +" ",selectedOperator +" ");
+            StockedText.Text = StockedText.Text.Replace(oldOperator + " ", selectedOperator + " ");
             UpdateMainDisplay();
-            mainNumber = "";                
+            mainNumber = "";
         }
     }
 
@@ -174,7 +174,7 @@ public partial class MainWindow : Window
     /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void GetEquality(object sender, RoutedEventArgs e)
     {
-        if (!reset && mainNumber!="") 
+        if (!reset && mainNumber != "")
         {
             StockedText.Text += mainNumber;
             DoCalculation();
@@ -194,15 +194,15 @@ public partial class MainWindow : Window
     /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void GetSquare(object sender, RoutedEventArgs e)
     {
-        if (selectedOperator == null && mainNumber!="")
-        {   
-            StockedText.Text = mainNumber + "²" +" = ";
+        if (selectedOperator == null && mainNumber != "")
+        {
+            StockedText.Text = mainNumber + "²" + " = ";
             mainNumber = Calculate.Multiplication(mainNumber, mainNumber).ToString();
             UpdateMainDisplay();
             stockedNumber = mainNumber;
             reset = true;
         }
-        else if (selectedOperator != null && mainNumber!="")
+        else if (selectedOperator != null && mainNumber != "")
         {
             string result = Calculate.Multiplication(mainNumber, mainNumber).ToString();
             StockedText.Text += mainNumber + "²" + " = ";
@@ -211,7 +211,7 @@ public partial class MainWindow : Window
             UpdateMainDisplay();
             stockedNumber = mainNumber;
             selectedOperator = null;
-            reset = true;              
+            reset = true;
         }
     }
 
@@ -223,15 +223,15 @@ public partial class MainWindow : Window
     /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void GetSquareRoot(object sender, RoutedEventArgs e)
     {
-        if (selectedOperator == null && mainNumber!="")
-        {   
-            StockedText.Text = "²√" + mainNumber +" = ";
+        if (selectedOperator == null && mainNumber != "")
+        {
+            StockedText.Text = "²√" + mainNumber + " = ";
             mainNumber = Calculate.SquareRoot(mainNumber).ToString();
             UpdateMainDisplay();
             stockedNumber = mainNumber;
             reset = true;
         }
-        else if (selectedOperator != null && mainNumber!="")
+        else if (selectedOperator != null && mainNumber != "")
         {
             string result = Calculate.SquareRoot(mainNumber).ToString();
             StockedText.Text += "²√" + mainNumber + " = ";
@@ -240,7 +240,7 @@ public partial class MainWindow : Window
             UpdateMainDisplay();
             stockedNumber = mainNumber;
             selectedOperator = null;
-            reset = true;              
+            reset = true;
         }
     }
 
@@ -252,9 +252,9 @@ public partial class MainWindow : Window
     /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void GetOneDivided(object sender, RoutedEventArgs e)
     {
-        if (selectedOperator == null && mainNumber!="")
-        {   
-            StockedText.Text = "1/" + mainNumber +" = ";
+        if (selectedOperator == null && mainNumber != "")
+        {
+            StockedText.Text = "1/" + mainNumber + " = ";
             try
             {
                 mainNumber = Calculate.Division("1", mainNumber).ToString();
@@ -269,7 +269,7 @@ public partial class MainWindow : Window
             }
             reset = true;
         }
-        else if (selectedOperator != null && mainNumber!="")
+        else if (selectedOperator != null && mainNumber != "")
         {
             StockedText.Text += "1/" + mainNumber + " = ";
             try
@@ -286,7 +286,7 @@ public partial class MainWindow : Window
                 UpdateMainDisplay();
             }
             selectedOperator = null;
-            reset = true;              
+            reset = true;
         }
     }
 
@@ -299,15 +299,15 @@ public partial class MainWindow : Window
     /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void GetPercent(object sender, RoutedEventArgs e)
     {
-        if (selectedOperator == null && mainNumber!="")
-        {   
+        if (selectedOperator == null && mainNumber != "")
+        {
             StockedText.Text = mainNumber + "%" + " = ";
             mainNumber = Calculate.Division(mainNumber, "100").ToString();
             UpdateMainDisplay();
             stockedNumber = mainNumber;
             reset = true;
         }
-        else if ((selectedOperator == "+" || selectedOperator == "-") && mainNumber!="")
+        else if ((selectedOperator == "+" || selectedOperator == "-") && mainNumber != "")
         {
             string resultP = Calculate.Division(mainNumber, "100").ToString();
             StockedText.Text += mainNumber + "%" + " = ";
@@ -317,9 +317,9 @@ public partial class MainWindow : Window
             UpdateMainDisplay();
             stockedNumber = mainNumber;
             selectedOperator = null;
-            reset = true;              
+            reset = true;
         }
-        else if ((selectedOperator == "/" || selectedOperator == "×") && mainNumber!="")
+        else if ((selectedOperator == "/" || selectedOperator == "×") && mainNumber != "")
         {
             string result = Calculate.Division(mainNumber, "100").ToString();
             StockedText.Text += mainNumber + "%" + " = ";
@@ -328,7 +328,7 @@ public partial class MainWindow : Window
             UpdateMainDisplay();
             stockedNumber = mainNumber;
             selectedOperator = null;
-            reset = true;              
+            reset = true;
         }
     }
 
@@ -344,20 +344,20 @@ public partial class MainWindow : Window
             case "+":
                 // methode addition
                 {
-                mainNumber = Calculate.Addition(stockedNumber, mainNumber).ToString();
-                break;
+                    mainNumber = Calculate.Addition(stockedNumber, mainNumber).ToString();
+                    break;
                 }
             case "-":
                 // methode soustraction 
                 {
-                mainNumber = Calculate.Subtraction(stockedNumber, mainNumber).ToString();
-                break;
+                    mainNumber = Calculate.Subtraction(stockedNumber, mainNumber).ToString();
+                    break;
                 }
             case "×":
                 // methode multiplication 
                 {
-                mainNumber = Calculate.Multiplication(stockedNumber, mainNumber).ToString();
-                break;
+                    mainNumber = Calculate.Multiplication(stockedNumber, mainNumber).ToString();
+                    break;
                 }
             case "÷":
                 // methode division 
@@ -374,7 +374,7 @@ public partial class MainWindow : Window
                 }
         }
     }
-        
+
     /// <summary>
     /// Supprime le dernier caractère saisi dans le nombre en cours.
     /// N'a aucun effet si la saisie doit être réinitialisée (reset actif).
@@ -382,12 +382,12 @@ public partial class MainWindow : Window
     /// <param name="sender">Le bouton DEL qui a été cliqué (non utilisé ici).</param>
     /// <param name="e">Données de l'événement de clic (non utilisées ici).</param>
     private void DeleteLast(object sender, RoutedEventArgs e)
-    {   
+    {
         if (!reset)
         {
             if (mainNumber.Length > 1)
             {
-                mainNumber = mainNumber.Remove(mainNumber.Length -1);
+                mainNumber = mainNumber.Remove(mainNumber.Length - 1);
             }
             else if (mainNumber.Length == 1)
             {
@@ -471,7 +471,7 @@ class Calculate
     /// <param name="numberString2">Le nombre à soustraire.</param>
     /// <returns>Le résultat de la soustraction, arrondi à 6 décimales.</returns>
     public static double Subtraction(string numberString1, string numberString2)
-    {   
+    {
         double result = TransformStringToDouble(numberString1) - TransformStringToDouble(numberString2);
         return Math.Round(result, 6);
     }
@@ -497,16 +497,16 @@ class Calculate
     /// <exception cref="DivideByZeroException">Levée si le diviseur vaut zéro.</exception>
 
     public static double Division(string numberString1, string numberString2)
-    {   
+    {
         double d1 = TransformStringToDouble(numberString1);
         double d2 = TransformStringToDouble(numberString2);
         if (d2 == 0)
             throw new DivideByZeroException("Impossible de diviser par zéro...");
-        
+
         double result = d1 / d2;
-        return Math.Round(result, 6);  
+        return Math.Round(result, 6);
     }
-    
+
     /// <summary>
     /// Calcule la racine carrée d'un nombre fourni sous forme de texte.
     /// </summary>
