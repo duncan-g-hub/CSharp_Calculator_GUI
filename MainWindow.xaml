@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CSharp_Calculator_GUI"
         mc:Ignorable="d"
-        Title="Calculatrice" Height="450" Width="350" MinHeight="400" MinWidth="300"> 
+        Title="Calculatrice" Height="450" Width="350" MinHeight="400" MinWidth="300" Icon="icon.ico"> 
 
     <Window.Resources>
         <Style x:Key="BoutonBase" TargetType="Button" >
